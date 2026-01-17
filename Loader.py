@@ -25,8 +25,8 @@ def load_model(rep):
     return Keys,Tensors        
 
 class Model:
-    # Dictionnaire pour la correspondance des types gguf avec struct
-    #  "type": [ symbole pour conversion Python, type size ]
+    # Dictionary mapping GGUF types to struct formats
+    #  "type": [ symbol for Python conversion, type size ]
     gguf_type = { 
         "UINT8":  ["B", 1], 
         "INT8":   ["b", 1],
@@ -77,7 +77,7 @@ class Model:
       "BF16": [None,None,None],
         }
 
-    # Liste des types pour indexation
+    # List of types for indexing
     type_list = list(gguf_type.keys())
     tensortype_list = list(gguf_tensor_type.keys())
 
@@ -119,20 +119,20 @@ class Model:
         """Charge les données depuis le fichier binaire spécifié."""
         with open(nom, 'rb') as fichier:
             
-            # Lire le contenu de l'en-tête
+            # Read the header
             b = fichier.read(4)
             self.Version = self.read_gguftype(fichier, "INT32")
             self.n_tensors = self.read_gguftype(fichier, "INT64")
             self.n_kv = self.read_gguftype(fichier, "INT64")
 
-            # Stocker les clés et leurs valeurs dans le dictionnaire Key
+            # Store keys and values in dictionary Key
             for i in range(self.n_kv):
                 kv_name = self.read_gguftype(fichier, "STR")
                 kv_typename = self.type_list[self.read_gguftype(fichier, "INT32")]
                 value = self.read_gguftype(fichier, kv_typename)
                 self.Key[kv_name] = value
 
-            # Stocker les informations des tenseurs dans le dictionnaire TensorC
+            # Store tensors metadata in dictionary TensorC
             for i in range(self.n_tensors):
                 tensor_name = self.read_gguftype(fichier, "STR")
                 dimension = self.read_gguftype(fichier, "INT32")
@@ -145,7 +145,7 @@ class Model:
                                              'offset': offset,
                                              'data': [] }
 
-            # Loader les tenseurs
+            # Load of tensors
             Tlist = list(self.TensorC.keys())
             Toffset = [self.TensorC[nm]['offset'] for nm in Tlist]
 
@@ -156,11 +156,5 @@ class Model:
                 tensor_name = Tlist[i]
                 Tsize = Toffset[i+1]-Toffset[i]
                 self.TensorC[tensor_name]['data'] = fichier.read(Tsize)
-            # On lit jusqu'à la fin
+            # Read until the end
             self.TensorC[Tlist[self.n_tensors-1]]['data'] = fichier.read()
-
-# Exemple d'utilisation :
-# model = Model()
-# model.MyLoad('nom_du_fichier.bin')
-# print(model.Key)
-# print(model.TensorC)
