@@ -3,7 +3,7 @@
 """
 Created on Wed Jul 24 13:26:16 2024
 
-@author: claire
+@author: ctualle
 """
 
 SPECIAL_CHARACTER = '▁'
