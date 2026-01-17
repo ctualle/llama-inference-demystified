@@ -3,7 +3,7 @@
 """
 Created on Mon Sep  2 14:11:20 2024
 
-@author: claire
+@author: ctualle
 """
 
 import pickle
