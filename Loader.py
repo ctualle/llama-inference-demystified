@@ -24,6 +24,7 @@ def load_model(rep):
             print(tensor_name + ' loaded')
     return Keys,Tensors        
 
+
 class Model:
     # Dictionary mapping GGUF types to struct formats
     #  "type": [ symbol for Python conversion, type size ]
@@ -110,9 +111,7 @@ class Model:
             align = DEFAULT_ALIGNMENT
         position = fichier.tell()
         a = align - position%align
-        fichier.read(a)
-        
-        
+        fichier.read(a)  
         
 
     def MyLoad(self, nom):
