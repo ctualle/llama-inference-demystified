@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep  2 14:11:20 2024
+
+@author: ctualle
+"""
+
 import tkinter as tk
 import Loader
 import tokenizer
