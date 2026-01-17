@@ -3,7 +3,7 @@
 """
 Created on Thu Jul 18 16:59:56 2024
 
-@author: claire
+@author: ctualle
 """
 
 import struct
