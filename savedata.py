@@ -11,12 +11,11 @@ import Loader
 import decompression
 
 
-# Chemin du modèle (à adapter selon l'emplacement réel du modèle)
+# Put model path
 model_llama = '../models/llama-2-7b-chat.Q8_0.gguf'
 rep = '../models/llama-2-7b-chat.Q8_0/'
 
 def save() :
-    
     model = Loader.Model()
     model.MyLoad(model_llama)
     K = model.Key
@@ -36,7 +35,5 @@ def save() :
 
     with open(rep+'Tensors_List.pkl','wb') as f:
         pickle.dump(Tnames,f)
-    print("Names saved")
-        
-        
+    print("Names saved")   
     return
