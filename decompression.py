@@ -10,7 +10,6 @@ import numpy as np
 import Loader
 
 def fp16_to_fp32(fp16_as_int): #put fp16 in integer
-    
     # Extract sign, exponent, and fraction from fp16
     sign = (fp16_as_int & 0x8000) >> 15
     exponent = (fp16_as_int & 0x7C00) >> 10
@@ -47,6 +46,7 @@ def fp16_to_fp32(fp16_as_int): #put fp16 in integer
 
 FP16_TO_FP32 = [fp16_to_fp32(i) for i in range(65536)]
 
+
 def dequantize_q8_0 (buf,size, bloc_size, raw_size, typestruct):
     y = np.empty(size, dtype = 'float32')
     cnt_y = 0
@@ -76,7 +76,7 @@ def token_embedding(Model,tokens,K,T):
         embd_token[i,:]=dequantize_q8_0(buf,N_EMBD,bloc_size, raw_size, typestruct)
         
     return embd_token    
-    
+
 
 def extract(blkTensor):
     Ttype = blkTensor['tensor_type'] 
@@ -90,5 +90,4 @@ def extract(blkTensor):
         data = np.array(struct.unpack('<'+str(N)+'f', blkTensor['data']),dtype = 'float32')
     data = data.reshape(Tsize)
     return data
-        
     
