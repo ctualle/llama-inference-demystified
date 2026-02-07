@@ -74,7 +74,6 @@ This constant is defined at the beginning of `main.py` and can be adjusted.
 ├── loader.py          # GGUF loader and model installation
 ├── decompression.py   # Q8_0 dequantization
 ├── transformer.py    # LLaMA forward pass implementation
-├── check.py           # Debug / validation utility
 └── models/            # GGUF model and generated pickle files
 ```
 
